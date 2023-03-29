@@ -1,4 +1,5 @@
 import { createTheme, ThemeOptions } from "@mui/material"
+import type {} from "@mui/x-date-pickers/themeAugmentation"
 
 export const customTheme: ThemeOptions = createTheme({
   palette: {
@@ -11,6 +12,15 @@ export const customTheme: ThemeOptions = createTheme({
     background: {
       paper: "#151515",
       default: "rgba(0, 0, 0, .96)",
+    },
+  },
+  components: {
+    MuiDatePicker: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "red",
+        },
+      },
     },
   },
 })
