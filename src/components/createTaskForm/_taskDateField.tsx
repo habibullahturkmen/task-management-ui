@@ -2,7 +2,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs"
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider"
 import { DatePicker } from "@mui/x-date-pickers/DatePicker"
 import React, { FC, ReactElement } from "react"
-import dayjs, { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import PropTypes from "prop-types"
 
 import { IDateField } from "./interfaces/IDateField"
@@ -30,7 +30,7 @@ const TaskDateField: FC<IDateField> = (props): ReactElement => {
 export default TaskDateField
 
 TaskDateField.propTypes = {
-  value: PropTypes.instanceOf(Dayjs),
+  value: PropTypes.any,
   onChange: PropTypes.func,
   disabled: PropTypes.bool,
 }
