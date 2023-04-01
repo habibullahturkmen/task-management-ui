@@ -6,9 +6,12 @@ import { ITaskFooter } from "./interfaces/ITaskFooter"
 
 const TaskFooter: FC<ITaskFooter> = (props): ReactElement => {
   const {
+    id,
+    status,
     onStatusChange = (e) => console.log(e),
     onClick = (e) => console.log(e),
   } = props
+
   return (
     <Box
       display="flex"
@@ -36,6 +39,8 @@ const TaskFooter: FC<ITaskFooter> = (props): ReactElement => {
 export default TaskFooter
 
 TaskFooter.propTypes = {
+  id: PropTypes.string.isRequired,
+  status: PropTypes.string,
   onStatusChange: PropTypes.func,
   onClick: PropTypes.func,
 }
