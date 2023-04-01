@@ -62,6 +62,14 @@ const CreateTaskForm: FC = (): ReactElement => {
       setShowSuccess(false)
     }, 7000)
 
+    if (createTaskMutation.isSuccess) {
+      setTitle("")
+      setDescription("")
+      setDate(null)
+      setStatus(Status.todo)
+      setPriority(Priority.normal)
+    }
+
     return () => {
       clearTimeout(successTimout)
     }
@@ -87,10 +95,12 @@ const CreateTaskForm: FC = (): ReactElement => {
       </Typography>
       <Stack sx={{ width: "100%" }} spacing={2}>
         <TaskTitleField
+          value={title}
           onChange={(e) => setTitle(e.target.value)}
           disabled={createTaskMutation.isLoading}
         />
         <TaskDescriptionField
+          value={description}
           onChange={(e) => setDescription(e.target.value)}
           disabled={createTaskMutation.isLoading}
         />
