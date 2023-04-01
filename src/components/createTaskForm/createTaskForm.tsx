@@ -1,4 +1,5 @@
 import React, { FC, ReactElement, useState } from "react"
+import { useMutation } from "@tanstack/react-query"
 import {
   Box,
   Typography,
@@ -9,6 +10,8 @@ import {
   AlertTitle,
 } from "@mui/material"
 
+import { ICreateTask } from "../taskArea/interfaces/ICreateTask"
+import { sendApiRequest } from "../../helpers/sendApiRequest"
 import TaskDescriptionField from "./_taskDescriptionField"
 import TaskSelectField from "./_taskSelectField"
 import TaskTitleField from "./_taskTitleField"
@@ -23,6 +26,30 @@ const CreateTaskForm: FC = (): ReactElement => {
   const [date, setDate] = useState<Dayjs | null>(dayjs())
   const [status, setStatus] = useState<string>(Status.todo)
   const [priority, setPriority] = useState<string>(Priority.normal)
+
+  const createTaskMutation = useMutation((data: ICreateTask) =>
+    sendApiRequest(
+      process.env.VITE_API_URL || "http://localhost:3200/tasks",
+      "POST",
+      data,
+    ),
+  )
+
+  function createTaskHandler() {
+    if (!title || !date || !description) {
+      return
+    }
+
+    const task = {
+      title,
+      description,
+      date: date.toString(),
+      status,
+      priority,
+    }
+
+    createTaskMutation.mutate(task)
+  }
 
   return (
     <Box
@@ -89,7 +116,12 @@ const CreateTaskForm: FC = (): ReactElement => {
           />
         </Stack>
         <LinearProgress />
-        <Button variant="contained" size="large" fullWidth>
+        <Button
+          onClick={createTaskHandler}
+          variant="contained"
+          size="large"
+          fullWidth
+        >
           Create A Task
         </Button>
       </Stack>
