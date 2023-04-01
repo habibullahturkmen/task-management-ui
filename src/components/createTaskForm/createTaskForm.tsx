@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState } from "react"
+import React, { FC, ReactElement, useState, useEffect } from "react"
 import { useMutation } from "@tanstack/react-query"
 import {
   Box,
@@ -26,6 +26,7 @@ const CreateTaskForm: FC = (): ReactElement => {
   const [date, setDate] = useState<Dayjs | null>(dayjs())
   const [status, setStatus] = useState<string>(Status.todo)
   const [priority, setPriority] = useState<string>(Priority.normal)
+  const [showSuccess, setShowSuccess] = useState<boolean>(false)
 
   const createTaskMutation = useMutation((data: ICreateTask) =>
     sendApiRequest(
@@ -51,6 +52,21 @@ const CreateTaskForm: FC = (): ReactElement => {
     createTaskMutation.mutate(task)
   }
 
+  // Manage Side Effects inside the application
+  useEffect(() => {
+    if (createTaskMutation.isSuccess) {
+      setShowSuccess(true)
+    }
+
+    const successTimout = setTimeout(() => {
+      setShowSuccess(false)
+    }, 7000)
+
+    return () => {
+      clearTimeout(successTimout)
+    }
+  }, [createTaskMutation.isSuccess])
+
   return (
     <Box
       display="flex"
@@ -60,10 +76,12 @@ const CreateTaskForm: FC = (): ReactElement => {
       px={4}
       my={6}
     >
-      <Alert severity="success" sx={{ width: "100%", marginBottom: "16px" }}>
-        <AlertTitle>Success</AlertTitle>
-        The task has been created successfully
-      </Alert>
+      {showSuccess && (
+        <Alert severity="success" sx={{ width: "100%", marginBottom: "16px" }}>
+          <AlertTitle>Success</AlertTitle>
+          The task has been created successfully
+        </Alert>
+      )}
       <Typography mb={2} component="h2" variant="h6">
         Create A Task
       </Typography>
