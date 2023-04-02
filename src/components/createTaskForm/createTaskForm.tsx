@@ -1,4 +1,4 @@
-import React, { FC, ReactElement, useState, useEffect } from "react"
+import React, { FC, ReactElement, useState, useEffect, useContext } from "react"
 import { useMutation } from "@tanstack/react-query"
 import {
   Box,
@@ -13,6 +13,7 @@ import {
 import { ICreateTask } from "../taskArea/interfaces/ICreateTask"
 import { sendApiRequest } from "../../helpers/sendApiRequest"
 import TaskDescriptionField from "./_taskDescriptionField"
+import { TaskStatusChangedContext } from "../../context"
 import TaskSelectField from "./_taskSelectField"
 import TaskTitleField from "./_taskTitleField"
 import TaskDateField from "./_taskDateField"
@@ -27,6 +28,8 @@ const CreateTaskForm: FC = (): ReactElement => {
   const [status, setStatus] = useState<string>(Status.todo)
   const [priority, setPriority] = useState<string>(Priority.normal)
   const [showSuccess, setShowSuccess] = useState<boolean>(false)
+
+  const tasksUpdateContext = useContext(TaskStatusChangedContext)
 
   const createTaskMutation = useMutation((data: ICreateTask) =>
     sendApiRequest(
@@ -56,6 +59,7 @@ const CreateTaskForm: FC = (): ReactElement => {
   useEffect(() => {
     if (createTaskMutation.isSuccess) {
       setShowSuccess(true)
+      tasksUpdateContext.toggle()
     }
 
     const successTimout = setTimeout(() => {
