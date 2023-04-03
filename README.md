@@ -2,11 +2,20 @@
 
 [Task Management API Repository](https://github.com/habibullahturkmen/task-management-api)
 
+### Teck Stack
+```
+# TypeScript, React.js, React Context Library
+# Material UI, TanStack Query, ESLint, and Prettier
+```
+
 ### Setup
-#### First of all go to the [api](https://github.com/habibullahturkmen/task-management-api) and complete the setup there.
-#### Copy ``.env.example`` to ``.env``
-#### Change ``VITE_API_URL`` to your backend url in .env file.
-#### Install node.js and yarn in your computer
+First of all go to the [api](https://github.com/habibullahturkmen/task-management-api) and complete the setup there.
+
+Copy ``.env.example`` to ``.env``
+
+Change ``VITE_API_URL`` to your backend url in .env file.
+
+Install node.js and yarn in your computer
 
 ### Run ``yarn`` to install dependencies
 ```bash
