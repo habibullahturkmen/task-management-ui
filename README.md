@@ -25,4 +25,4 @@ yarn build && yarn preview
 ```
 
 ### Preview
-![Task Management](https://github.com/habibullahturkmen/task-management-ui/tree/main/src/assets/img.png)
+![Task Management](./src/assets/img.png)
